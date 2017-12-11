@@ -7,6 +7,33 @@ public class Tree2LinkedList {
 
 	public static void main(String[] args) {
 
+		Node node1 = new Node(8, null, null);
+		Node node10 = new Node(55, null, null);
+		Node node2 = new Node(12, node10, null);
+		Node node3 = new Node(17, null, null);
+		Node node4 = new Node(19, null, null);
+		Node node5 = new Node(10, node2, node1);
+		Node node6 = new Node(18, node4, node3);
+		Node node7 = new Node(15, node6, node5);
+		Node node8 = new Node(22, null, null);
+		Node node9 = new Node(20, node8, node7);
+		
+		
+		
+/*		             
+ *                        20
+		             15            22
+		        10        18
+		     8    12    17   19 
+		        55
+		     */
+
+		Node head = node9;
+		
+		Node start = bintree2list(head);
+		printList(start);
+		
+		
 	}
 
 	public static void TreeToList(Node head) {
@@ -37,7 +64,7 @@ public class Tree2LinkedList {
 	 * steps 1 and 2 of the above algorithm
 	 */
 
-	Node bintree2listUtil(Node node) {
+	static Node bintree2listUtil(Node node) {
 
 		// Base case
 		if (node == null) {
@@ -50,15 +77,22 @@ public class Tree2LinkedList {
 			// Convert the left subtree
 			Node left = bintree2listUtil(node.left);
 
-			// Find inorder predecessor. After this loop, left
-			// will point to the inorder predecessor
+			// Find in order predecessor. After this loop, left
+			// will point to the in order predecessor
 			for (; left.right != null; left = left.right);
+			
+			/*		             
+			 *                        20
+					             15         22
+					        10        18
+					     8    12    17   19 
+					        55
+			 */
 
 			// Make root as next of the predecessor
-			if(left != null) 
-		    	left.right = node;
+        	left.right = node;
 
-			// Make predecssor as previous of root
+			// Make predecessor as previous of root
 			node.left = left;
 		}
 
@@ -70,8 +104,7 @@ public class Tree2LinkedList {
 
 			// Find inorder successor. After this loop, right
 			// will point to the inorder successor
-			for (; right.left != null; right = right.left)
-				;
+			for (; right.left != null; right = right.left);
 
 			// Make root as previous of successor
 			right.left = node;
@@ -83,11 +116,11 @@ public class Tree2LinkedList {
 		return node;
 	}
 
-	// The main function that first calls bintree2listUtil(), then follows step
+	 // The main function that first calls bintree2listUtil(), then follows step
 	// 3
 	// of the above algorithm
 
-	Node bintree2list(Node node) {
+	static Node bintree2list(Node node) {
 
 		// Base case
 		if (node == null) {
@@ -108,7 +141,7 @@ public class Tree2LinkedList {
 	}
 
 	/* Function to print nodes in a given doubly linked list */
-	void printList(Node node) {
+	static void printList(Node node) {
 		while (node != null) {
 			System.out.print(node.val + " ");
 			node = node.right;
